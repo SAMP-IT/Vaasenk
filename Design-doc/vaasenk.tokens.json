@@ -1,0 +1,560 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "$metadata": {
+    "name": "Vaasenk Design Tokens",
+    "version": "0.1.0",
+    "product": "Vaasenk",
+    "platforms": [
+      "web",
+      "mobile"
+    ],
+    "description": "Gradient-first design token system for Vaasenk web app and mobile app. Built for Admin, Teacher and Student experiences.",
+    "principles": [
+      "Friendly before corporate",
+      "Gradient-rich but readable",
+      "Warm education energy",
+      "Subtle use of #A00000 and #FECA02 as investor-aligned brand anchors",
+      "Spacious, rounded, animated and emotionally inviting"
+    ]
+  },
+  "color": {
+    "brand": {
+      "vaasenk-red": {
+        "$value": "#A00000",
+        "$type": "color",
+        "$description": "Primary Vaasenk deep red. Use for main CTAs, active states, key brand marks and high-emphasis actions. Avoid using it as full-page background except in hero gradients."
+      },
+      "learning-gold": {
+        "$value": "#FECA02",
+        "$type": "color",
+        "$description": "Secondary Vaasenk gold. Use for highlights, badges, notification dots, progress accents and delight moments. Avoid using as body text."
+      },
+      "ember-red": {
+        "$value": "#C1121F",
+        "$type": "color",
+        "$description": "Brighter red for gradients, hover states and energetic cards."
+      },
+      "sunrise-orange": {
+        "$value": "#FF7A18",
+        "$type": "color",
+        "$description": "Warm bridge color between red and gold in gradients."
+      },
+      "coral-pink": {
+        "$value": "#FF5C8A",
+        "$type": "color",
+        "$description": "Friendly student-facing accent used sparingly in cards and illustrations."
+      }
+    },
+    "surface": {
+      "warm-canvas": {
+        "$value": "#FFF7EC",
+        "$type": "color",
+        "$description": "Main warm page background. Keeps the app friendly and less corporate."
+      },
+      "cream-card": {
+        "$value": "#FFFDF8",
+        "$type": "color",
+        "$description": "Default card/input surface."
+      },
+      "peach-wash": {
+        "$value": "#FFE8D2",
+        "$type": "color",
+        "$description": "Soft gradient background wash."
+      },
+      "rose-wash": {
+        "$value": "#FFE3EA",
+        "$type": "color",
+        "$description": "Soft pink background wash for onboarding and mobile hero sections."
+      },
+      "glass-white": {
+        "$value": "rgba(255,255,255,0.72)",
+        "$type": "color",
+        "$description": "Glassmorphism panels over gradient backgrounds."
+      },
+      "glass-border": {
+        "$value": "rgba(255,255,255,0.42)",
+        "$type": "color",
+        "$description": "Border for glass surfaces."
+      }
+    },
+    "text": {
+      "ink": {
+        "$value": "#231516",
+        "$type": "color",
+        "$description": "Primary readable text."
+      },
+      "deep-maroon": {
+        "$value": "#4A0508",
+        "$type": "color",
+        "$description": "Strong title color for headings and brand-heavy pages."
+      },
+      "muted": {
+        "$value": "#7A5A52",
+        "$type": "color",
+        "$description": "Secondary body text and helper labels."
+      },
+      "subtle": {
+        "$value": "#A88479",
+        "$type": "color",
+        "$description": "Placeholders, meta text and inactive labels."
+      },
+      "inverse": {
+        "$value": "#FFFFFF",
+        "$type": "color",
+        "$description": "Text on deep gradient surfaces."
+      }
+    },
+    "semantic": {
+      "success": {
+        "$value": "#17A75B",
+        "$type": "color",
+        "$description": "Positive completion and upload success."
+      },
+      "warning": {
+        "$value": "#F59E0B",
+        "$type": "color",
+        "$description": "Pending, attention and exam warnings."
+      },
+      "danger": {
+        "$value": "#DC2626",
+        "$type": "color",
+        "$description": "Destructive actions and critical errors."
+      },
+      "info": {
+        "$value": "#2563EB",
+        "$type": "color",
+        "$description": "Neutral information, links and secondary notices."
+      }
+    },
+    "role": {
+      "admin": {
+        "$value": "#A00000",
+        "$type": "color",
+        "$description": "Admin identity anchor."
+      },
+      "teacher": {
+        "$value": "#FF8A00",
+        "$type": "color",
+        "$description": "Teacher identity anchor."
+      },
+      "student": {
+        "$value": "#FF5C8A",
+        "$type": "color",
+        "$description": "Student identity anchor."
+      }
+    }
+  },
+  "gradient": {
+    "hero-sunrise": {
+      "$value": "linear-gradient(135deg, #A00000 0%, #C1121F 34%, #FF7A18 70%, #FECA02 100%)",
+      "$type": "gradient",
+      "$description": "Primary emotional hero gradient for welcome, login, dashboard hero and AI cards."
+    },
+    "soft-canvas": {
+      "$value": "radial-gradient(circle at 15% 10%, rgba(254,202,2,0.28), transparent 28%), radial-gradient(circle at 82% 4%, rgba(255,92,138,0.25), transparent 30%), linear-gradient(135deg, #FFF7EC 0%, #FFE8D2 52%, #FFE3EA 100%)",
+      "$type": "gradient",
+      "$description": "Default app background gradient."
+    },
+    "red-glow": {
+      "$value": "radial-gradient(circle at 50% 30%, rgba(254,202,2,0.34), transparent 30%), linear-gradient(145deg, #4A0508 0%, #A00000 48%, #FF7A18 100%)",
+      "$type": "gradient",
+      "$description": "Deep animated panel gradient for AI and premium action cards."
+    },
+    "gold-card": {
+      "$value": "linear-gradient(135deg, #FECA02 0%, #FFB020 52%, #FF7A18 100%)",
+      "$type": "gradient",
+      "$description": "Gold-forward card gradient for highlights and achievements."
+    },
+    "student-candy": {
+      "$value": "linear-gradient(135deg, #FF5C8A 0%, #FF7A18 58%, #FECA02 100%)",
+      "$type": "gradient",
+      "$description": "Friendly student card gradient."
+    },
+    "glass-shine": {
+      "$value": "linear-gradient(135deg, rgba(255,255,255,0.82) 0%, rgba(255,255,255,0.54) 100%)",
+      "$type": "gradient",
+      "$description": "Glass card fill gradient."
+    }
+  },
+  "font": {
+    "display": {
+      "$value": "Inter",
+      "$type": "fontFamily",
+      "$description": "Headlines and product UI."
+    },
+    "body": {
+      "$value": "Inter",
+      "$type": "fontFamily",
+      "$description": "Main body and dashboard text."
+    },
+    "control": {
+      "$value": "Inter",
+      "$type": "fontFamily",
+      "$description": "Buttons, inputs and labels."
+    },
+    "fallback": {
+      "$value": "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+      "$type": "fontFamily",
+      "$description": "Fallback stack."
+    }
+  },
+  "typography": {
+    "web-display": {
+      "$value": {
+        "fontFamily": "Inter",
+        "fontSize": "72px",
+        "fontWeight": 800,
+        "lineHeight": 1.02,
+        "letterSpacing": "-0.04em"
+      },
+      "$type": "typography",
+      "$description": "Large web hero display."
+    },
+    "web-h1": {
+      "$value": {
+        "fontFamily": "Inter",
+        "fontSize": "48px",
+        "fontWeight": 800,
+        "lineHeight": 1.08,
+        "letterSpacing": "-0.035em"
+      },
+      "$type": "typography",
+      "$description": "Web page headline."
+    },
+    "web-h2": {
+      "$value": {
+        "fontFamily": "Inter",
+        "fontSize": "34px",
+        "fontWeight": 750,
+        "lineHeight": 1.15,
+        "letterSpacing": "-0.025em"
+      },
+      "$type": "typography",
+      "$description": "Web section title."
+    },
+    "web-h3": {
+      "$value": {
+        "fontFamily": "Inter",
+        "fontSize": "24px",
+        "fontWeight": 700,
+        "lineHeight": 1.2,
+        "letterSpacing": "-0.018em"
+      },
+      "$type": "typography",
+      "$description": "Card title."
+    },
+    "web-body": {
+      "$value": {
+        "fontFamily": "Inter",
+        "fontSize": "16px",
+        "fontWeight": 400,
+        "lineHeight": 1.55,
+        "letterSpacing": "-0.005em"
+      },
+      "$type": "typography",
+      "$description": "Readable paragraph/body."
+    },
+    "web-label": {
+      "$value": {
+        "fontFamily": "Inter",
+        "fontSize": "13px",
+        "fontWeight": 650,
+        "lineHeight": 1.2,
+        "letterSpacing": "0.01em"
+      },
+      "$type": "typography",
+      "$description": "Labels, chips and metadata."
+    },
+    "mobile-title": {
+      "$value": {
+        "fontFamily": "Inter",
+        "fontSize": "32px",
+        "fontWeight": 800,
+        "lineHeight": 1.08,
+        "letterSpacing": "-0.03em"
+      },
+      "$type": "typography",
+      "$description": "Mobile hero/screen title."
+    },
+    "mobile-section": {
+      "$value": {
+        "fontFamily": "Inter",
+        "fontSize": "20px",
+        "fontWeight": 750,
+        "lineHeight": 1.18,
+        "letterSpacing": "-0.02em"
+      },
+      "$type": "typography",
+      "$description": "Mobile section heading."
+    },
+    "mobile-body": {
+      "$value": {
+        "fontFamily": "Inter",
+        "fontSize": "15px",
+        "fontWeight": 400,
+        "lineHeight": 1.45,
+        "letterSpacing": "-0.004em"
+      },
+      "$type": "typography",
+      "$description": "Mobile body text."
+    },
+    "mobile-caption": {
+      "$value": {
+        "fontFamily": "Inter",
+        "fontSize": "12px",
+        "fontWeight": 500,
+        "lineHeight": 1.3,
+        "letterSpacing": "0"
+      },
+      "$type": "typography",
+      "$description": "Mobile caption and metadata."
+    }
+  },
+  "spacing": {
+    "0": {
+      "$value": "0px",
+      "$type": "dimension"
+    },
+    "2": {
+      "$value": "2px",
+      "$type": "dimension"
+    },
+    "4": {
+      "$value": "4px",
+      "$type": "dimension"
+    },
+    "6": {
+      "$value": "6px",
+      "$type": "dimension"
+    },
+    "8": {
+      "$value": "8px",
+      "$type": "dimension"
+    },
+    "10": {
+      "$value": "10px",
+      "$type": "dimension"
+    },
+    "12": {
+      "$value": "12px",
+      "$type": "dimension"
+    },
+    "16": {
+      "$value": "16px",
+      "$type": "dimension"
+    },
+    "20": {
+      "$value": "20px",
+      "$type": "dimension"
+    },
+    "24": {
+      "$value": "24px",
+      "$type": "dimension"
+    },
+    "28": {
+      "$value": "28px",
+      "$type": "dimension"
+    },
+    "32": {
+      "$value": "32px",
+      "$type": "dimension"
+    },
+    "40": {
+      "$value": "40px",
+      "$type": "dimension"
+    },
+    "48": {
+      "$value": "48px",
+      "$type": "dimension"
+    },
+    "56": {
+      "$value": "56px",
+      "$type": "dimension"
+    },
+    "64": {
+      "$value": "64px",
+      "$type": "dimension"
+    },
+    "80": {
+      "$value": "80px",
+      "$type": "dimension"
+    },
+    "96": {
+      "$value": "96px",
+      "$type": "dimension"
+    }
+  },
+  "radius": {
+    "xs": {
+      "$value": "8px",
+      "$type": "dimension"
+    },
+    "sm": {
+      "$value": "12px",
+      "$type": "dimension"
+    },
+    "md": {
+      "$value": "16px",
+      "$type": "dimension"
+    },
+    "lg": {
+      "$value": "22px",
+      "$type": "dimension"
+    },
+    "xl": {
+      "$value": "28px",
+      "$type": "dimension"
+    },
+    "2xl": {
+      "$value": "36px",
+      "$type": "dimension"
+    },
+    "3xl": {
+      "$value": "44px",
+      "$type": "dimension"
+    },
+    "full": {
+      "$value": "999px",
+      "$type": "dimension"
+    }
+  },
+  "shadow": {
+    "card-soft": {
+      "$value": "0 18px 50px rgba(74,5,8,0.08), 0 2px 8px rgba(74,5,8,0.05)",
+      "$type": "shadow",
+      "$description": "Default card elevation."
+    },
+    "card-float": {
+      "$value": "0 32px 90px rgba(160,0,0,0.18), 0 8px 28px rgba(255,122,24,0.10)",
+      "$type": "shadow",
+      "$description": "Large hero/floating card shadow."
+    },
+    "glow-red": {
+      "$value": "0 0 0 1px rgba(160,0,0,0.14), 0 24px 60px rgba(160,0,0,0.24)",
+      "$type": "shadow",
+      "$description": "Red glow for active/premium panels."
+    },
+    "glow-gold": {
+      "$value": "0 0 0 1px rgba(254,202,2,0.22), 0 18px 50px rgba(254,202,2,0.28)",
+      "$type": "shadow",
+      "$description": "Gold glow for badges, achievements and highlights."
+    },
+    "mobile-tab": {
+      "$value": "0 10px 30px rgba(160,0,0,0.18)",
+      "$type": "shadow",
+      "$description": "Mobile bottom action elevation."
+    }
+  },
+  "blur": {
+    "glass": {
+      "$value": "20px",
+      "$type": "dimension",
+      "$description": "Backdrop blur for glass cards."
+    },
+    "heavy": {
+      "$value": "36px",
+      "$type": "dimension",
+      "$description": "Decorative glow blur."
+    }
+  },
+  "motion": {
+    "duration": {
+      "fast": {
+        "$value": "140ms",
+        "$type": "duration"
+      },
+      "base": {
+        "$value": "220ms",
+        "$type": "duration"
+      },
+      "slow": {
+        "$value": "420ms",
+        "$type": "duration"
+      },
+      "ambient": {
+        "$value": "9000ms",
+        "$type": "duration"
+      }
+    },
+    "easing": {
+      "standard": {
+        "$value": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+        "$type": "cubicBezier"
+      },
+      "spring": {
+        "$value": "cubic-bezier(0.18, 0.89, 0.32, 1.28)",
+        "$type": "cubicBezier"
+      },
+      "smooth": {
+        "$value": "cubic-bezier(0.4, 0, 0.2, 1)",
+        "$type": "cubicBezier"
+      }
+    }
+  },
+  "breakpoint": {
+    "mobile": {
+      "$value": "390px",
+      "$type": "dimension"
+    },
+    "tablet": {
+      "$value": "768px",
+      "$type": "dimension"
+    },
+    "desktop": {
+      "$value": "1024px",
+      "$type": "dimension"
+    },
+    "wide": {
+      "$value": "1440px",
+      "$type": "dimension"
+    }
+  },
+  "component": {
+    "primary-button": {
+      "$type": "component",
+      "$description": "Main CTA button. Red-orange-gold gradient, pill radius, white text, glow on hover. Use once per screen section.",
+      "$value": {
+        "height": "52px",
+        "paddingX": "24px",
+        "radius": "{radius.full}",
+        "background": "{gradient.hero-sunrise}",
+        "textColor": "{color.text.inverse}",
+        "shadow": "{shadow.glow-red}"
+      }
+    },
+    "glass-card": {
+      "$type": "component",
+      "$description": "Primary content card over gradient surfaces.",
+      "$value": {
+        "background": "{color.surface.glass-white}",
+        "border": "1px solid {color.surface.glass-border}",
+        "radius": "{radius.3xl}",
+        "padding": "{spacing.24}",
+        "blur": "{blur.glass}",
+        "shadow": "{shadow.card-soft}"
+      }
+    },
+    "role-card": {
+      "$type": "component",
+      "$description": "Admin/Teacher/Student selection card with illustration, role color and arrow action.",
+      "$value": {
+        "radius": "{radius.2xl}",
+        "padding": "{spacing.24}",
+        "minHeight": "132px",
+        "shadow": "{shadow.card-soft}"
+      }
+    },
+    "mobile-bottom-nav": {
+      "$type": "component",
+      "$description": "Mobile tab bar with central floating action button.",
+      "$value": {
+        "height": "76px",
+        "radius": "{radius.2xl}",
+        "background": "{color.surface.glass-white}",
+        "activeColor": "{color.brand.vaasenk-red}",
+        "fabBackground": "{gradient.hero-sunrise}",
+        "shadow": "{shadow.mobile-tab}"
+      }
+    }
+  }
+}
