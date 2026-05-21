@@ -1,0 +1,21 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Dev artifacts from this session
+.playwright-mcp/
+vaasenk-*.png
+
+# Logs
+*.log
+
+# Local env files
+.env
+.env.*
+!.env.example
