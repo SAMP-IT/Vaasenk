@@ -19,7 +19,7 @@ const path = require('node:path');
 // EXACT expected test count — a security suite must not silently shrink OR
 // gain a skipped test. Bump this DELIBERATELY when you add/remove tests; that
 // forcing function is the point (you cannot quietly change the isolation suite).
-const EXPECTED_TESTS = 46;
+const EXPECTED_TESTS = 58;
 
 const resultsPath = path.join(__dirname, '..', 'test-results.json');
 
