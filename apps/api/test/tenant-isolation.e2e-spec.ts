@@ -545,7 +545,11 @@ describe('Multi-tenant isolation + RBAC (adversarial, hardened)', () => {
     });
     it('student cannot list users (admin-only) → 403', async () => {
       const res = await get('/api/v1/users', seed.A.studentId);
-      expect(res.status).toBe(403);
+      // ⚠️ DELIBERATE BREAK — gate verification only. The real response IS 403
+      // (the student is correctly blocked); expecting 200 makes this RBAC test
+      // FAIL so we can watch the ruleset block the merge on a red check.
+      // THIS COMMIT MUST NOT BE MERGED — it is reverted on the same branch.
+      expect(res.status).toBe(200);
     });
     it('student cannot list syllabus (admin-only) → 403', async () => {
       const res = await get('/api/v1/syllabus', seed.A.studentId);
