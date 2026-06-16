@@ -45,8 +45,13 @@ design-docs
 **/coverage
 **/.nyc_output
 
-# Mobile (Expo) — never part of API image
-apps/mobile
+# Mobile (Expo) — source is never part of the API image, but the manifest is
+# kept so the root workspace `npm ci` (deps stage) resolves the full lockfile.
+apps/mobile/*
+!apps/mobile/package.json
 
-# Web (Next.js) — never part of API image; deployed to Vercel separately
-apps/web
+# Web (Next.js) — deployed to Vercel separately; keep only the manifest so the
+# workspace `npm ci` succeeds. The builder stage never copies the web source,
+# so `turbo --filter=@vaasenk/api` only ever sees apps/api.
+apps/web/*
+!apps/web/package.json

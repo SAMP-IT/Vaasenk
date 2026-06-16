@@ -49,10 +49,11 @@ RUN apt-get update -y \
     && apt-get install -y --no-install-recommends openssl ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
-# Bring installed node_modules from deps stage.
+# Bring installed node_modules from deps stage. npm workspaces HOIST every
+# dependency into the single root /repo/node_modules (per-workspace
+# node_modules dirs aren't created), so copying the root tree is sufficient —
+# and copying non-existent per-workspace dirs would fail the build.
 COPY --from=deps /repo/node_modules ./node_modules
-COPY --from=deps /repo/apps/api/node_modules ./apps/api/node_modules
-COPY --from=deps /repo/packages/db/node_modules ./packages/db/node_modules
 
 # Copy source for the API + every workspace it depends on.
 COPY package.json package-lock.json turbo.json tsconfig.base.json ./
@@ -65,8 +66,12 @@ COPY packages/ui ./packages/ui
 # Generate Prisma client (apps/api/src imports @prisma/client at build time).
 RUN npx prisma generate --schema=packages/db/prisma/schema.prisma
 
-# Build the NestJS app -> apps/api/dist/main.js
-RUN npm run build --workspace=@vaasenk/api
+# Build the NestJS app -> apps/api/dist/main.js. Use turbo (NOT a bare
+# `npm run build --workspace=@vaasenk/api`) so the `^build` dependency builds
+# @vaasenk/ai -> packages/ai/dist FIRST. apps/api/src imports `@vaasenk/ai` at
+# runtime (it is NOT bundled — nest build is plain tsc), so its dist must exist
+# both for this tsc build to resolve types AND at runtime (see the runner copy).
+RUN npx turbo run build --filter=@vaasenk/api
 
 # Prune dev dependencies for the final image.
 RUN npm prune --omit=dev --workspaces
@@ -87,10 +92,8 @@ ENV NODE_ENV=production \
 RUN groupadd --system --gid 1001 vaasenk \
     && useradd --system --uid 1001 --gid vaasenk --create-home vaasenk
 
-# Production node_modules from the pruned workspace install.
+# Production node_modules from the pruned workspace install (hoisted to root).
 COPY --from=builder --chown=vaasenk:vaasenk /repo/node_modules ./node_modules
-COPY --from=builder --chown=vaasenk:vaasenk /repo/apps/api/node_modules ./apps/api/node_modules
-COPY --from=builder --chown=vaasenk:vaasenk /repo/packages/db/node_modules ./packages/db/node_modules
 
 # Built NestJS bundle.
 COPY --from=builder --chown=vaasenk:vaasenk /repo/apps/api/dist ./dist
@@ -98,6 +101,11 @@ COPY --from=builder --chown=vaasenk:vaasenk /repo/apps/api/package.json ./packag
 
 # Prisma schema + generated client (Prisma reads schema at runtime for some ops).
 COPY --from=builder --chown=vaasenk:vaasenk /repo/packages/db ./packages/db
+
+# @vaasenk/ai (incl. its built dist/) — apps/api/dist `require('@vaasenk/ai')`
+# at runtime resolves through the node_modules/@vaasenk/ai workspace symlink to
+# ./packages/ai. Without this the API + worker crash with "Cannot find module".
+COPY --from=builder --chown=vaasenk:vaasenk /repo/packages/ai ./packages/ai
 
 USER vaasenk
 

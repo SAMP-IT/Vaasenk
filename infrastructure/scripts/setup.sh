@@ -55,7 +55,11 @@ docker exec vaasenk-postgres psql -U postgres -d vaasenk -tAc \
 echo "▸ Running Prisma migrations…"
 (
   cd packages/db
-  npx prisma migrate dev --name init --skip-seed
+  # Use `migrate deploy` (the production path) — it applies the committed
+  # baseline without drift-detecting the schema-invisible pgvector HNSW index
+  # (which `migrate dev` would otherwise try to scaffold a corrective migration
+  # for). The baseline self-bootstraps the `vector` extension.
+  npx prisma migrate deploy
 )
 
 echo "▸ Seeding demo data…"
