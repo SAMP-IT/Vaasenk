@@ -74,8 +74,12 @@ Write-Host "  pgvector installed."
 Write-Host "> Running Prisma migrations..."
 Push-Location (Join-Path $repoRoot 'packages/db')
 try {
-    & npx prisma migrate dev --name init --skip-seed
-    if ($LASTEXITCODE -ne 0) { throw "prisma migrate dev failed." }
+    # Use `migrate deploy` (production path) — applies the committed baseline
+    # without drift-detecting the schema-invisible pgvector HNSW index that
+    # `migrate dev` would try to scaffold a corrective migration for. The
+    # baseline self-bootstraps the `vector` extension.
+    & npx prisma migrate deploy
+    if ($LASTEXITCODE -ne 0) { throw "prisma migrate deploy failed." }
 } finally {
     Pop-Location
 }
