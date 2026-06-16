@@ -24,7 +24,9 @@ import type {
  * not a long-form drawer).
  *
  * Behaviour:
- *   - Fetches GET /classrooms?limit=200 on open.
+ *   - Fetches GET /classrooms?limit=100 (the backend ListClassroomsDto @Max)
+ *     on open. An institution with >100 classrooms would truncate here —
+ *     paginate if that becomes real.
  *   - Pre-checks classrooms that already have THIS syllabus mapped (rendered
  *     as disabled — they cannot be unchecked from this dialog).
  *   - Marks classrooms mapped to OTHER syllabi with a small "currently
@@ -74,8 +76,10 @@ export function MapClassroomsDialog({
       setState('loading');
       setError(null);
       try {
+        // limit=100 is the backend ListClassroomsDto @Max; the prior 200 was
+        // silently 400ing, leaving this dialog's classroom list empty.
         const result = await apiFetchEnvelope<ClassroomPickerOption[]>(
-          '/api/v1/classrooms?limit=200&sort=createdAt:desc',
+          '/api/v1/classrooms?limit=100&sort=createdAt:desc',
         );
         if (cancelled) return;
         setClassrooms(result.data ?? []);
