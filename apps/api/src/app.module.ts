@@ -13,6 +13,7 @@ import { ResponseInterceptor } from './common/interceptors/response.interceptor'
 import { AuditModule } from './common/audit/audit.module';
 import { SupabaseModule } from './common/supabase/supabase.module';
 import { AiChatModule } from './modules/ai-chat/ai-chat.module';
+import { AcademicModule } from './modules/academic/academic.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { ClassroomsModule } from './modules/classrooms/classrooms.module';
 import { HealthModule } from './modules/health/health.module';
@@ -76,6 +77,7 @@ import { PrismaModule } from './prisma/prisma.module';
     InstitutionsModule,
     AuthModule,
     UsersModule,
+    AcademicModule,
     ClassroomsModule,
     NotesModule,
     SyllabusModule,

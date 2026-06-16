@@ -152,7 +152,7 @@ const ADMIN_NAV_ITEMS: ReadonlyArray<NavItem> = [
   { href: '/admin/students', label: 'Students', iconKey: 'graduation-cap', comingSoon: true },
   { href: '/admin/syllabus', label: 'Syllabus', iconKey: 'file-text' },
   { href: '/admin/sample-papers', label: 'Sample Papers', iconKey: 'clipboard-list', comingSoon: true },
-  { href: '/admin/classrooms', label: 'Classrooms', iconKey: 'book-open', comingSoon: true },
+  { href: '/admin/classrooms', label: 'Classrooms', iconKey: 'book-open' },
   { href: '/admin/billing', label: 'Billing', iconKey: 'credit-card' },
   { href: '/admin/settings', label: 'Settings', iconKey: 'settings', comingSoon: true },
 ];

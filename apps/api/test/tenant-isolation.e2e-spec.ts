@@ -567,4 +567,73 @@ describe('Multi-tenant isolation + RBAC (adversarial, hardened)', () => {
       expect(res.status).toBe(403);
     });
   });
+
+  // ---------------------------------------------------------------------------
+  // 4. ACADEMIC STRUCTURE read endpoints (NEW) — /classes, /subjects,
+  //    /academic-years. Admin-only, institution-scoped. List-scoping isolation:
+  //    A's list must include A's rows and exclude B's; non-admins are 403.
+  // ---------------------------------------------------------------------------
+  describe('Academic structure · read endpoints', () => {
+    // -- positive controls (also prove non-emptiness) ----------------------
+    it('A-admin GET /classes includes A class + section (200)', async () => {
+      const res = await get('/api/v1/classes', seed.A.adminId);
+      expect(res.status).toBe(200);
+      const body = JSON.stringify(res.body);
+      expect(body).toContain(seed.A.classId);
+      expect(body).toContain(seed.A.sectionId);
+    });
+    it('A-admin GET /subjects includes A subject (200)', async () => {
+      const res = await get('/api/v1/subjects', seed.A.adminId);
+      expect(res.status).toBe(200);
+      expect(JSON.stringify(res.body)).toContain(seed.A.subjectId);
+    });
+    it('A-admin GET /academic-years includes A year (200)', async () => {
+      const res = await get('/api/v1/academic-years', seed.A.adminId);
+      expect(res.status).toBe(200);
+      expect(JSON.stringify(res.body)).toContain(seed.A.academicYearId);
+    });
+
+    // -- cross-tenant scoping ----------------------------------------------
+    it("A-admin's /classes does NOT include B's class or section", async () => {
+      const res = await get('/api/v1/classes', seed.A.adminId);
+      expect(res.status).toBe(200);
+      const body = JSON.stringify(res.body);
+      expect(body).not.toContain(seed.B.classId);
+      expect(body).not.toContain(seed.B.sectionId);
+    });
+    it("A-admin's /subjects does NOT include B's subject", async () => {
+      const res = await get('/api/v1/subjects', seed.A.adminId);
+      expect(res.status).toBe(200);
+      expect(JSON.stringify(res.body)).not.toContain(seed.B.subjectId);
+    });
+    it("A-admin's /academic-years does NOT include B's year", async () => {
+      const res = await get('/api/v1/academic-years', seed.A.adminId);
+      expect(res.status).toBe(200);
+      expect(JSON.stringify(res.body)).not.toContain(seed.B.academicYearId);
+    });
+
+    // -- RBAC: admin-only, so student AND teacher are 403 ------------------
+    it('student cannot GET /classes (admin-only) → 403', async () => {
+      expect((await get('/api/v1/classes', seed.A.studentId)).status).toBe(403);
+    });
+    it('teacher cannot GET /classes (admin-only) → 403', async () => {
+      expect((await get('/api/v1/classes', seed.A.teacherId)).status).toBe(403);
+    });
+    it('student cannot GET /subjects (admin-only) → 403', async () => {
+      expect((await get('/api/v1/subjects', seed.A.studentId)).status).toBe(403);
+    });
+    it('teacher cannot GET /subjects (admin-only) → 403', async () => {
+      expect((await get('/api/v1/subjects', seed.A.teacherId)).status).toBe(403);
+    });
+    it('student cannot GET /academic-years (admin-only) → 403', async () => {
+      expect((await get('/api/v1/academic-years', seed.A.studentId)).status).toBe(
+        403,
+      );
+    });
+    it('teacher cannot GET /academic-years (admin-only) → 403', async () => {
+      expect((await get('/api/v1/academic-years', seed.A.teacherId)).status).toBe(
+        403,
+      );
+    });
+  });
 });
