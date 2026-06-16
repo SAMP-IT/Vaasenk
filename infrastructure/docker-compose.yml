@@ -1,0 +1,114 @@
+# Vaasenk — local development infrastructure.
+#
+# Mirrors the production stack (Supabase Postgres + pgvector, Supabase
+# Storage, Redis) with locally-runnable equivalents:
+#
+#   • postgres   — pgvector/pgvector:pg16 with the vector extension created
+#                  on first boot (see ./postgres/init/01-pgvector.sql)
+#   • redis      — redis 7 (BullMQ + cache)
+#   • minio      — S3-compatible storage that maps onto Supabase Storage
+#   • minio-init — one-shot job that creates the default vaasenk-storage
+#                  bucket and exits 0
+#
+# Bring up:  docker compose -f infrastructure/docker-compose.yml up -d
+# Tear down: docker compose -f infrastructure/docker-compose.yml down
+#
+# See CLAUDE.md §2 (Locked Technical Decisions) for the production targets.
+
+name: vaasenk
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: vaasenk-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: vaasenk
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      # PG locale aligned to the institution timezone in seed.ts.
+      TZ: Asia/Kolkata
+      PGTZ: Asia/Kolkata
+    ports:
+      - "5432:5432"
+    volumes:
+      - vaasenk_postgres_data:/var/lib/postgresql/data
+      - ./postgres/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d vaasenk"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 5s
+
+  redis:
+    image: redis:7-alpine
+    container_name: vaasenk-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - vaasenk_redis_data:/data
+    command: ["redis-server", "--appendonly", "yes", "--maxmemory-policy", "noeviction"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 8
+
+  minio:
+    image: minio/minio:latest
+    container_name: vaasenk-minio
+    restart: unless-stopped
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+      MINIO_BROWSER_REDIRECT_URL: http://localhost:9001
+    ports:
+      - "9000:9000"   # S3 API
+      - "9001:9001"   # Console UI
+    volumes:
+      - vaasenk_minio_data:/data
+    command: server /data --console-address ":9001"
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 8s
+
+  # One-shot bucket bootstrap. Exits 0 after the bucket exists.
+  #
+  # SECURITY NOTE — local-dev convenience only:
+  # The entrypoint below grants anonymous download on `vaasenk-storage` so that
+  # the local web/mobile apps can fetch uploaded assets without minting signed
+  # URLs during early development. Production uses Supabase Storage with
+  # short-lived signed URLs scoped per institution (see CLAUDE.md §2 — File
+  # Storage, and §3 — Multi-Tenancy Rules). DO NOT replicate the
+  # `mc anonymous set download …` step in any production bootstrap.
+  minio-init:
+    image: minio/mc:latest
+    container_name: vaasenk-minio-init
+    depends_on:
+      minio:
+        condition: service_healthy
+    restart: "no"
+    entrypoint:
+      - /bin/sh
+      - -c
+      - |
+        set -e
+        mc alias set local http://minio:9000 minioadmin minioadmin
+        mc mb --ignore-existing local/vaasenk-storage
+        # LOCAL-DEV-ONLY: anonymous read. Production = Supabase signed URLs.
+        # See CLAUDE.md §2 (File Storage) — do NOT carry this into prod.
+        mc anonymous set download local/vaasenk-storage
+        echo ""
+        echo "✓ MinIO bucket 'vaasenk-storage' ready"
+        echo "  API:     http://localhost:9000"
+        echo "  Console: http://localhost:9001 (minioadmin / minioadmin)"
+
+volumes:
+  vaasenk_postgres_data:
+  vaasenk_redis_data:
+  vaasenk_minio_data:

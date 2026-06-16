@@ -1,0 +1,117 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: "ci-${{ github.ref }}"
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    name: Lint, Typecheck, Build
+    runs-on: ubuntu-latest
+    env:
+      # Placeholders for Prisma generate / typecheck — no live DB is contacted.
+      DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/vaasenk?schema=public"
+      DIRECT_URL: "postgresql://postgres:postgres@localhost:5432/vaasenk?schema=public"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate Prisma client
+        run: npx prisma generate --schema=packages/db/prisma/schema.prisma
+
+      - name: Lint, typecheck, build
+        run: npx turbo run lint typecheck build
+
+  tenant-isolation:
+    name: Tenant isolation + RBAC tests
+    runs-on: ubuntu-latest
+
+    # This job provisions its OWN ephemeral database + cache. It must never
+    # assume a database already exists. A cross-tenant leak, a failing test, or
+    # the suite failing to run at all (see the "fail-closed guard" step) all
+    # break the build.
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: vaasenk_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d vaasenk_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+
+    env:
+      DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/vaasenk_test"
+      DIRECT_URL: "postgresql://postgres:postgres@localhost:5432/vaasenk_test"
+      REDIS_URL: "redis://localhost:6379"
+      # Supabase token verification is overridden in the test harness; these are
+      # placeholders only so env validation passes at app boot.
+      SUPABASE_URL: "https://placeholder.supabase.co"
+      SUPABASE_ANON_KEY: "ci-placeholder-anon-key"
+      SUPABASE_SERVICE_ROLE_KEY: "ci-placeholder-service-role-key"
+      NODE_ENV: "test"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate Prisma client
+        run: npx prisma generate --schema=packages/db/prisma/schema.prisma
+
+      - name: Enable pgvector + pgcrypto extensions
+        run: |
+          PGPASSWORD=postgres psql -h localhost -U postgres -d vaasenk_test \
+            -c "CREATE EXTENSION IF NOT EXISTS vector; CREATE EXTENSION IF NOT EXISTS pgcrypto;"
+
+      - name: Push schema to the ephemeral DB
+        run: npx prisma db push --schema=packages/db/prisma/schema.prisma --skip-generate
+
+      - name: DB pre-flight — assert the suite will hit the right, schema-loaded DB
+        run: node apps/api/test/assert-db-ready.js
+
+      - name: Run tenant-isolation + RBAC suite (builds deps via turbo ^build)
+        run: npx turbo run test --filter=@vaasenk/api
+
+      - name: Fail-closed guard — assert the security suite genuinely ran
+        if: always()
+        run: node apps/api/test/assert-suite-ran.js

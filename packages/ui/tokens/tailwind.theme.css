@@ -1,0 +1,127 @@
+@theme {
+  /* Vaasenk Tailwind v4 Theme Tokens */
+
+  /* Colors */
+  --color-vaasenk-red: #A00000;
+  --color-vaasenk-gold: #FECA02;
+  --color-vaasenk-ember-red: #C1121F;
+  --color-vaasenk-sunrise-orange: #FF7A18;
+  --color-vaasenk-coral-pink: #FF5C8A;
+
+  --color-vaasenk-warm-canvas: #FFF7EC;
+  --color-vaasenk-cream-card: #FFFDF8;
+  --color-vaasenk-peach-wash: #FFE8D2;
+  --color-vaasenk-rose-wash: #FFE3EA;
+  --color-vaasenk-line-sand: #EAD7CF;
+
+  --color-vaasenk-ink: #231516;
+  --color-vaasenk-deep-maroon: #4A0508;
+  --color-vaasenk-muted: #7A5A52;
+  --color-vaasenk-subtle: #A88479;
+  --color-vaasenk-inverse: #FFFFFF;
+
+  --color-vaasenk-success: #17A75B;
+  --color-vaasenk-warning: #F59E0B;
+  --color-vaasenk-danger: #DC2626;
+  --color-vaasenk-info: #2563EB;
+
+  /* Fonts */
+  --font-vaasenk: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* Typography */
+  --text-vaasenk-display: 72px;
+  --leading-vaasenk-display: 1.02;
+  --tracking-vaasenk-display: -0.04em;
+
+  --text-vaasenk-h1: 48px;
+  --leading-vaasenk-h1: 1.08;
+  --tracking-vaasenk-h1: -0.035em;
+
+  --text-vaasenk-h2: 34px;
+  --leading-vaasenk-h2: 1.15;
+  --tracking-vaasenk-h2: -0.025em;
+
+  --text-vaasenk-h3: 24px;
+  --leading-vaasenk-h3: 1.2;
+  --tracking-vaasenk-h3: -0.018em;
+
+  --text-vaasenk-body: 16px;
+  --leading-vaasenk-body: 1.55;
+
+  --text-vaasenk-label: 13px;
+  --leading-vaasenk-label: 1.2;
+
+  --text-vaasenk-mobile-title: 32px;
+  --leading-vaasenk-mobile-title: 1.08;
+
+  --text-vaasenk-mobile-section: 20px;
+  --leading-vaasenk-mobile-section: 1.18;
+
+  --text-vaasenk-mobile-body: 15px;
+  --leading-vaasenk-mobile-body: 1.45;
+
+  --text-vaasenk-mobile-caption: 12px;
+  --leading-vaasenk-mobile-caption: 1.3;
+
+  /* Spacing */
+  --spacing-vaasenk-2: 2px;
+  --spacing-vaasenk-4: 4px;
+  --spacing-vaasenk-6: 6px;
+  --spacing-vaasenk-8: 8px;
+  --spacing-vaasenk-10: 10px;
+  --spacing-vaasenk-12: 12px;
+  --spacing-vaasenk-16: 16px;
+  --spacing-vaasenk-20: 20px;
+  --spacing-vaasenk-24: 24px;
+  --spacing-vaasenk-28: 28px;
+  --spacing-vaasenk-32: 32px;
+  --spacing-vaasenk-40: 40px;
+  --spacing-vaasenk-48: 48px;
+  --spacing-vaasenk-56: 56px;
+  --spacing-vaasenk-64: 64px;
+  --spacing-vaasenk-80: 80px;
+  --spacing-vaasenk-96: 96px;
+
+  /* Radius */
+  --radius-vaasenk-xs: 8px;
+  --radius-vaasenk-sm: 12px;
+  --radius-vaasenk-md: 16px;
+  --radius-vaasenk-lg: 22px;
+  --radius-vaasenk-xl: 28px;
+  --radius-vaasenk-2xl: 36px;
+  --radius-vaasenk-3xl: 44px;
+  --radius-vaasenk-full: 999px;
+
+  /* Shadows */
+  --shadow-vaasenk-card-soft: 0 18px 50px rgba(74, 5, 8, 0.08), 0 2px 8px rgba(74, 5, 8, 0.05);
+  --shadow-vaasenk-card-float: 0 32px 90px rgba(160, 0, 0, 0.18), 0 8px 28px rgba(255, 122, 24, 0.10);
+  --shadow-vaasenk-glow-red: 0 0 0 1px rgba(160,0,0,0.14), 0 24px 60px rgba(160,0,0,0.24);
+  --shadow-vaasenk-glow-gold: 0 0 0 1px rgba(254,202,2,0.22), 0 18px 50px rgba(254,202,2,0.28);
+
+  /* Breakpoints */
+  --breakpoint-vaasenk-mobile: 390px;
+  --breakpoint-vaasenk-tablet: 768px;
+  --breakpoint-vaasenk-desktop: 1024px;
+  --breakpoint-vaasenk-wide: 1440px;
+
+  /* Gradients — canonical recipes from CLAUDE.md §4. Consume with
+     bg-[image:var(--gradient-brand-flame)] etc. Mirrored into theme.css
+     for non-Tailwind callers. */
+  --gradient-brand-flame: linear-gradient(135deg, #A00000 0%, #D61F2C 45%, #FF7A1A 72%, #FECA02 100%);
+  --gradient-deep-ai-glow: linear-gradient(135deg, #3B0010 0%, #780018 45%, #A00000 70%, #FF8A00 100%);
+  --gradient-cream-sunrise:
+    radial-gradient(circle at 20% 10%, rgba(254, 202, 2, 0.25) 0%, transparent 25%),
+    linear-gradient(135deg, #FFF7EA 0%, #FFE3D2 45%, #FFF0F4 100%);
+  --gradient-teacher-orange: linear-gradient(135deg, #A00000 0%, #FF7A1A 55%, #FECA02 100%);
+  --gradient-student-coral: linear-gradient(135deg, #FF5C7A 0%, #FF8A4C 60%, #FECA02 100%);
+  --gradient-admin-royal: linear-gradient(135deg, #5A0013 0%, #A00000 55%, #FFB000 100%);
+}
+
+/*
+Recommended utility usage:
+bg-vaasenk-warm-canvas
+text-vaasenk-ink
+rounded-vaasenk-3xl
+shadow-vaasenk-card-soft
+font-vaasenk
+*/

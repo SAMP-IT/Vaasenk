@@ -1,0 +1,64 @@
+{
+  "expo": {
+    "name": "Vaasenk",
+    "slug": "vaasenk",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "scheme": "vaasenk",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FFF7EC"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.vaasenk.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFF7EC"
+      },
+      "package": "com.vaasenk.app"
+    },
+    "plugins": [
+      "expo-font",
+      "expo-secure-store",
+      "expo-splash-screen",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Vaasenk uses your camera to photograph board notes and publish them to your classroom.",
+          "microphonePermission": false,
+          "recordAudioAndroid": false
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Vaasenk needs access to your photo library so you can pick existing photos to publish as notes."
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "color": "#A00000",
+          "defaultChannel": "system",
+          "sounds": []
+        }
+      ]
+    ],
+    "experiments": {
+      "tsconfigPaths": true,
+      "typedRoutes": false
+    },
+    "extra": {
+      "eas": {
+        "projectId": ""
+      }
+    }
+  }
+}

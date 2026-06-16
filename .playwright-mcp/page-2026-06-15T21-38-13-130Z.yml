@@ -1,0 +1,80 @@
+- generic [ref=e4]:
+  - complementary [ref=e5]:
+    - link "Vaasenk" [ref=e6] [cursor=pointer]:
+      - /url: /
+      - generic [ref=e7]: V
+      - generic [ref=e8]: Vaasenk
+    - navigation "Role spaces" [ref=e9]:
+      - paragraph [ref=e10]: Role spaces
+      - link "Admin" [ref=e11] [cursor=pointer]:
+        - /url: /admin
+        - img [ref=e12]
+        - generic [ref=e17]: Admin
+      - link "Teacher" [ref=e18] [cursor=pointer]:
+        - /url: /teacher
+        - img [ref=e19]
+        - generic [ref=e22]: Teacher
+      - link "Student" [ref=e23] [cursor=pointer]:
+        - /url: /student
+        - img [ref=e24]
+        - generic [ref=e26]: Student
+      - paragraph [ref=e27]: Coming soon
+      - generic [ref=e28]:
+        - img [ref=e29]
+        - text: Classrooms
+      - generic [ref=e34]:
+        - img [ref=e35]
+        - text: Notes
+      - generic [ref=e37]:
+        - img [ref=e38]
+        - text: AI chatbot
+      - generic [ref=e40]:
+        - img [ref=e41]
+        - text: Members
+      - generic [ref=e46]:
+        - img [ref=e47]
+        - text: Settings
+  - generic [ref=e50]:
+    - banner [ref=e51]:
+      - generic [ref=e53]:
+        - img
+        - searchbox "Search classrooms, notes, students…" [disabled] [ref=e54]
+      - button "Notifications, loading" [ref=e55]:
+        - img [ref=e56]
+      - button "Sign out" [ref=e61]
+    - main [ref=e62]:
+      - generic [ref=e65]:
+        - generic [ref=e67]:
+          - paragraph [ref=e68]: Teacher Dashboard
+          - heading "Good to see you back" [level=1] [ref=e69]
+          - paragraph [ref=e70]: Snap your board, share notes, and let AI draft your next question paper. Three jobs that should take less than five minutes.
+          - generic [ref=e71]:
+            - button "Upload board notes" [ref=e72]:
+              - img [ref=e73]
+              - text: Upload board notes
+            - button "Generate question paper" [ref=e76]:
+              - img [ref=e77]
+              - text: Generate question paper
+        - generic [ref=e80]:
+          - generic [ref=e81]:
+            - img [ref=e83]
+            - heading "Upload board photo" [level=3] [ref=e86]
+            - paragraph [ref=e87]: Snap → tag → publish to a classroom in seconds.
+            - generic [ref=e88]: Available in Sprint 2+
+          - generic [ref=e89]:
+            - img [ref=e91]
+            - heading "AI question paper" [level=3] [ref=e94]
+            - paragraph [ref=e95]: Pick portion + pattern. AI drafts a structured paper.
+            - generic [ref=e96]: Available in Sprint 2+
+          - generic [ref=e97]:
+            - img [ref=e99]
+            - heading "Syllabus chatbot" [level=3] [ref=e101]
+            - paragraph [ref=e102]: Ask your syllabus — get citations, not hallucinations.
+            - generic [ref=e103]: Available in Sprint 2+
+        - generic [ref=e104]:
+          - img [ref=e106]
+          - heading "No classrooms yet" [level=3] [ref=e108]
+          - paragraph [ref=e109]: An admin needs to assign you to a classroom — once they do, your notes and AI tools show up here.
+          - link "View getting-started guide" [ref=e111] [cursor=pointer]:
+            - /url: "#"
+            - button "View getting-started guide" [ref=e112]

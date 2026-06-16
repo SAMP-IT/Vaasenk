@@ -1,0 +1,49 @@
+/**
+ * Vaasenk global stylesheet.
+ *
+ * Order matters for Tailwind v4:
+ *   1. tailwindcss base + components + utilities layers
+ *   2. Vaasenk @theme tokens (so utilities like bg-vaasenk-red exist)
+ *   3. Vaasenk named-class theme (.vaasenk-app-bg, .vaasenk-glass-card, ...)
+ *   4. App-level overrides (font wiring, base body color)
+ */
+
+@import "tailwindcss";
+@import "@vaasenk/ui/tokens/tailwind";
+@import "@vaasenk/ui/tokens/css";
+
+@layer base {
+  :root {
+    /* Re-route the design-system Inter font to Next.js's next/font loader.
+       --font-inter is set on <html> by the root layout. */
+    --font-vaasenk: var(--font-inter), Inter, system-ui, -apple-system,
+      BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  html {
+    background-color: var(--vaasenk-warm-canvas);
+    color: var(--vaasenk-ink);
+    font-family: var(--font-vaasenk);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    min-height: 100vh;
+  }
+
+  /* CLAUDE.md §4 (Brand Colors): Cream Canvas is the explicit web spec.
+     The token file uses #FFF7EC (cream); both differ by 2 hex points — we
+     respect the token (single source of truth) but expose the cream-canvas
+     alias for prose-faithful CSS lookups. */
+  :root {
+    --vaasenk-cream-canvas: #fff7ea;
+  }
+}
+
+/* Page-shell soft shadow per CLAUDE.md §4. */
+@layer utilities {
+  .shadow-vaasenk-soft {
+    box-shadow: 0 8px 24px rgba(160, 0, 0, 0.08);
+  }
+}

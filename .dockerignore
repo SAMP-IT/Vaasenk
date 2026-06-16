@@ -1,0 +1,52 @@
+# Vaasenk — Docker build context exclusions.
+#
+# Build context is the monorepo root (Railway sets it this way). Keep the
+# image lean by skipping anything not needed for build/runtime.
+
+# Dependencies
+**/node_modules
+
+# Build outputs
+**/dist
+**/build
+**/.next
+**/.turbo
+**/*.tsbuildinfo
+
+# VCS + tooling
+.git
+.gitignore
+.github
+
+# Logs + local state
+**/*.log
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+
+# Environment files (secrets must come from runtime env, not the image)
+**/.env
+**/.env.*
+!**/.env.example
+
+# Editor / OS noise
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+
+# Docs / design assets (not needed at runtime)
+docs
+design-docs
+**/*.md
+!**/README.md
+
+# Test artifacts
+**/coverage
+**/.nyc_output
+
+# Mobile (Expo) — never part of API image
+apps/mobile
+
+# Web (Next.js) — never part of API image; deployed to Vercel separately
+apps/web

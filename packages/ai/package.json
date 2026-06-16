@@ -1,0 +1,37 @@
+{
+  "name": "@vaasenk/ai",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AI service abstractions — RAG retrieval, embeddings, and chat — wrapping OpenAI/Anthropic SDKs as NestJS-injectable services.",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "lint": "exit 0",
+    "clean": "rm -rf dist .turbo *.tsbuildinfo"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.32.1",
+    "@nestjs/common": "^10.4.15",
+    "@nestjs/config": "^3.3.0",
+    "@prisma/client": "^6.19.3",
+    "@vaasenk/db": "*",
+    "gpt-tokenizer": "^2.8.1",
+    "openai": "^4.77.0",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3"
+  }
+}

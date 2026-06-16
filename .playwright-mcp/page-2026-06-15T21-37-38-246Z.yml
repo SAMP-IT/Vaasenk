@@ -1,0 +1,29 @@
+- generic [ref=e4]:
+  - generic [ref=e5]: Sprint 0 · Foundation
+  - heading "Teach more. Copy less." [level=1] [ref=e6]
+  - paragraph [ref=e7]: Vaasenk is being built. This landing page is a placeholder so you can verify the cream canvas, Inter typography, and Vaasenk design tokens are wired correctly across the web app.
+  - generic [ref=e8]:
+    - heading "Route map" [level=2] [ref=e9]
+    - list [ref=e10]:
+      - listitem [ref=e11]:
+        - link "→ /login (auth layout)" [ref=e12] [cursor=pointer]:
+          - /url: /login
+      - listitem [ref=e13]:
+        - link "→ /register" [ref=e14] [cursor=pointer]:
+          - /url: /register
+      - listitem [ref=e15]:
+        - link "→ /admin (Admin Royal gradient)" [ref=e16] [cursor=pointer]:
+          - /url: /admin
+      - listitem [ref=e17]:
+        - link "→ /teacher (Teacher Orange gradient)" [ref=e18] [cursor=pointer]:
+          - /url: /teacher
+      - listitem [ref=e19]:
+        - link "→ /student (Student Coral gradient)" [ref=e20] [cursor=pointer]:
+          - /url: /student
+  - generic [ref=e21]:
+    - link "Go to login" [ref=e22] [cursor=pointer]:
+      - /url: /login
+      - button "Go to login" [ref=e23]
+    - link "Peek at teacher dashboard" [ref=e24] [cursor=pointer]:
+      - /url: /teacher
+      - button "Peek at teacher dashboard" [ref=e25]

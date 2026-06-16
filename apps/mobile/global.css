@@ -1,0 +1,14 @@
+/* Vaasenk Mobile — NativeWind v4 entry CSS.
+ *
+ * This file feeds the Metro+NativeWind compiler. NativeWind reads the
+ * @tailwind directives, compiles classNames into RN style objects, and
+ * injects them at runtime — none of this CSS is shipped to the device.
+ *
+ * Do not add @layer rules or custom CSS here unless NativeWind explicitly
+ * supports it (it doesn't, as of v4.1). Custom styling lives in
+ * StyleSheet objects or className strings consumed by the JSX transform.
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
